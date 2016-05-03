@@ -6,44 +6,43 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:26:27 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/03 11:26:46 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/03 14:37:44 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
+#include "../includes/lib_draw_img.h"
 
-void		line(t_all *all)
+void		wtf(t_all *all)
 {
-	int		test_bits[4] = {WHITE, WHITE, WHITE, WHITE};
-	int		size_line[1] = {500 * 4};
-	int		endian[1] = {1};
+	int		bits;
+	int		size;
+	int		endian;
+	unsigned int color = RED;
 
-	FT_INIT(int, i, 50);
-	while (i < 200)
+	FT_INIT(int, i, 0);
+	FT_INIT(int, j, 0);
+	all->img = mlx_get_data_addr(all->img_ptr, &bits, &size, &endian);
+	while (j < all->win_y)
 	{
-		mlx_pixel_put(all->mlx, all->win, i, 200, all->color);
-		i++;
+		i = 0;
+		while (i < all->win_x)
+		{
+			put_pixel_img(i, j, color, all);
+			i++;
+//			color += i;
+		}
+		j++;
+//		color += j;
 	}
-	all->img = mlx_get_data_addr(all->img_ptr, test_bits, size_line, endian);
-	all->img[500] = 255;
-	all->img[501] = 0;
-	all->img[502] = 0;
-	all->img[503] = 0;
-	all->img[600] = 0;
-	all->img[601] = 255;
-	all->img[602] = 0;
-	all->img[603] = 0;
-	all->img[700] = 0;
-	all->img[701] = 0;
-	all->img[702] = 255;
-	all->img[703] = 0;
-	mlx_put_image_to_window(all->mlx, all->win, all->img_ptr, 250, 250);
+	mlx_put_image_to_window(all->mlx, all->win, all->img_ptr, 0, 0);
 }
 
 int			key_hook(int keycode, t_all *all)
 {
 	if (keycode == ESC)
 	{
+		mlx_destroy_image(all->mlx, all->img_ptr);
 		free(all);
 		exit(EXIT_SUCCESS);
 	}
@@ -62,7 +61,7 @@ int			main(void)
 	all->img_ptr = mlx_new_image(all->mlx, all->win_x, all->win_y);
 	all->win = mlx_new_window(all->mlx, all->win_x, all->win_y, "TEEEEEEEST");
 	mlx_hook(all->win, 2, (1L << 0), key_hook, all);
-	line(all);
+	wtf(all);
 	mlx_loop(all->mlx);
 	return (0);
 }

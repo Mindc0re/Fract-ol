@@ -6,11 +6,13 @@
 #    By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/03 09:51:13 by sgaudin           #+#    #+#              #
-#    Updated: 2016/05/03 09:54:45 by sgaudin          ###   ########.fr        #
+#    Updated: 2016/05/03 13:14:52 by sgaudin          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME = fractol
+
+L = lib_draw_img/
 
 CC = gcc -Wall -Wextra -Werror
 
@@ -18,11 +20,13 @@ CC_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 SRC = src/test.c
 
+LIBD_SRC = $(L)put_pixel_img.c
+
 all: $(NAME)
 
 $(NAME):
 	make -C libft/
-	$(CC) $(CC_FLAGS) $(SRC) -o $(NAME) -I./includes -L./libft/ -lft
+	$(CC) $(CC_FLAGS) $(SRC) $(LIBD_SRC) -o $(NAME) -I./includes -L./libft/ -lft
 
 clean:
 	make -C libft/ clean

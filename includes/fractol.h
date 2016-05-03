@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/03 10:02:34 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/03 15:58:39 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FRACTOL_H
 
 # include "../libft/includes/libft.h"
-//# include "lib_draw.h"
 # include <mlx.h>
 # include <math.h>
 /* TMP */
@@ -73,14 +72,18 @@ typedef struct		s_all
 	int				color;
 }					t_all;
 
+typedef struct		s_complex
+{
+	double			r;
+	double			i;
+}					t_complex;
+
+typedef struct		s_mandel
+{
+	long long int	zoom;
+	t_complex		*c;
+	t_complex		*z;
+	long int		iter;
+}					t_mandel;
+
 #endif
-
-
-
-
-
-
-
-
-
-
