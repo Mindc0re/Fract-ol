@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/03 15:58:39 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/04 11:32:53 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 # include "../libft/includes/libft.h"
 # include <mlx.h>
 # include <math.h>
-/* TMP */
+
 # include <stdio.h>
-/* TMP */
 
 # define FT_INIT(t, n, v)			t n = v
 # define FT_MULTI(a, b, c)			a = b = c
@@ -61,6 +60,25 @@ enum {
 	ALT_R
 }					keys;
 
+typedef struct		s_complex
+{
+	float			r;
+	float			i;
+}					t_complex;
+
+typedef struct		s_mandel
+{
+	float			zoom;
+//	float			zoom_y;
+	t_complex		*c;
+	t_complex		*z;
+	long int		iter;
+	float			x_min;
+	float			x_max;
+	float			y_min;
+	float			y_max;
+}					t_mandel;
+
 typedef struct		s_all
 {
 	void			*mlx;
@@ -70,20 +88,20 @@ typedef struct		s_all
 	int				win_x;
 	int				win_y;
 	int				color;
+	t_mandel		*mandel;
 }					t_all;
 
-typedef struct		s_complex
-{
-	double			r;
-	double			i;
-}					t_complex;
-
-typedef struct		s_mandel
-{
-	long long int	zoom;
-	t_complex		*c;
-	t_complex		*z;
-	long int		iter;
-}					t_mandel;
+int					key_hook(int keycode, t_all *all);
+void				mandelbrot(t_all *all);
 
 #endif
+
+
+
+
+
+
+
+
+
+

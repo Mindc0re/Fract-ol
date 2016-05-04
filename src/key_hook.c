@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_pixel_img.c                                    :+:      :+:    :+:   */
+/*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/03 13:03:30 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/04 10:30:45 by sgaudin          ###   ########.fr       */
+/*   Created: 2016/05/04 09:57:40 by sgaudin           #+#    #+#             */
+/*   Updated: 2016/05/04 10:07:17 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
+#include "../includes/lib_draw_img.h"
 
-void		put_pixel_img(int x, int y, unsigned int color, t_all *all)
+int		key_hook(int keycode, t_all *all)
 {
-	if (x >= 0 && x <= all->win_x && y >= 0 && y <= all->win_y)
+	if (keycode == ESC)
 	{
-		all->img[(x * 4) + (y * (all->win_y * 4))] = (color & 0x0000FF);
-		all->img[(x * 4) + 1 + (y * (all->win_y * 4))] = (color & 0x00FF00) >> 8;
-		all->img[(x * 4) + 2 + (y * (all->win_y * 4))] = (color & 0xFF0000) >> 16;
-		all->img[(x * 4) + 3 + (y * (all->win_y * 4))] = 0;
+		mlx_destroy_image(all->mlx, all->img_ptr);
+		if (all->mandel)
+		{
+			free(all->mandel->z);
+			free(all->mandel->c);
+			free(all->mandel);
+		}
+		free(all);
+		exit(EXIT_SUCCESS);
 	}
+	return (0);
 }
