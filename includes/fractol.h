@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/04 11:32:53 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/05 15:05:47 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/includes/libft.h"
 # include <mlx.h>
 # include <math.h>
+# include <time.h>
 
 # include <stdio.h>
 
@@ -29,6 +30,7 @@
 # define GREEN 0x0000FF00
 # define PINK 0x00F400A1
 # define GOLD 0x00FFD700
+# define BLACK 0x00000000
 
 enum {
 	ESC = 53,
@@ -60,23 +62,31 @@ enum {
 	ALT_R
 }					keys;
 
+enum {
+	LEFT_B = 1,
+	RIGHT_B,
+	ROLL_DOWN = 4,
+	ROLL_UP
+}					mouse;
+
 typedef struct		s_complex
 {
-	float			r;
-	float			i;
+	double			r;
+	double			i;
 }					t_complex;
 
 typedef struct		s_mandel
 {
-	float			zoom;
-//	float			zoom_y;
+	double			zoom_x;
+	double			zoom_y;
 	t_complex		*c;
 	t_complex		*z;
-	long int		iter;
-	float			x_min;
-	float			x_max;
-	float			y_min;
-	float			y_max;
+	double			iter;
+	double			iter_max;
+	double			x_min;
+	double			x_max;
+	double			y_min;
+	double			y_max;
 }					t_mandel;
 
 typedef struct		s_all
@@ -87,14 +97,17 @@ typedef struct		s_all
 	char			*img;
 	int				win_x;
 	int				win_y;
-	int				color;
+	unsigned int	color;
 	t_mandel		*mandel;
 }					t_all;
 
 int					key_hook(int keycode, t_all *all);
+int					mouse_hook(int button, int x, int y, t_all *all);
 void				mandelbrot(t_all *all);
 
 #endif
+
+
 
 
 

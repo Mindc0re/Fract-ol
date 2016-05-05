@@ -6,7 +6,7 @@
 #    By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/03 09:51:13 by sgaudin           #+#    #+#              #
-#    Updated: 2016/05/04 10:04:34 by sgaudin          ###   ########.fr        #
+#    Updated: 2016/05/05 13:46:49 by sgaudin          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,11 +14,11 @@ NAME = fractol
 
 L = lib_draw_img/
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc #-Wall -Wextra -Werror
 
 CC_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
-SRC = src/main.c src/mandelbrot.c src/key_hook.c
+SRC = src/main.c src/mandelbrot.c src/key_hook.c src/mouse_hook.c
 
 LIBD_SRC = $(L)put_pixel_img.c
 
