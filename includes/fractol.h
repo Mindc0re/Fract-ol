@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/05 15:05:47 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/06 12:10:49 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ typedef struct		s_complex
 	double			i;
 }					t_complex;
 
-typedef struct		s_mandel
+typedef struct		s_fractal
 {
 	double			zoom_x;
 	double			zoom_y;
+	double			zoom_var;
 	t_complex		*c;
 	t_complex		*z;
 	double			iter;
@@ -87,7 +88,7 @@ typedef struct		s_mandel
 	double			x_max;
 	double			y_min;
 	double			y_max;
-}					t_mandel;
+}					t_fractal;
 
 typedef struct		s_all
 {
@@ -98,23 +99,12 @@ typedef struct		s_all
 	int				win_x;
 	int				win_y;
 	unsigned int	color;
-	t_mandel		*mandel;
+	t_fractal		*fractal;
 }					t_all;
 
 int					key_hook(int keycode, t_all *all);
 int					mouse_hook(int button, int x, int y, t_all *all);
 void				mandelbrot(t_all *all);
+void				julia(t_all *all);
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
