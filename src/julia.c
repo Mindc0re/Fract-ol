@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 11:30:21 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/06 12:12:31 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/09 15:43:00 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_fractal		*init_julia(t_all *all)
 		all->fractal->y_max = (1.2 * all->win_y) / 240;
 		all->fractal->x_min = (-1 * all->win_x) / 200;
 		all->fractal->x_max = (1 * all->win_x) / 200;
-		all->fractal->zoom_var = 2;
 		all->fractal->iter_max = 50;
 		all->fractal->c->r = 0.285;
 		all->fractal->c->i = 0.01;
@@ -64,7 +63,7 @@ void			calcul_julia(t_all *all, t_fractal *julia, double x, double y)
 	if (julia->iter == julia->iter_max)
 		put_pixel_img(x, y, BLACK, all);
 	else
-		put_pixel_img_degrade(x, y, julia->iter, all);
+		put_pixel_img_degrade(x, y, all->color, all);
 }
 
 void			julia(t_all *all)

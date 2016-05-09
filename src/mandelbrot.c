@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 15:35:28 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/06 12:45:22 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/09 16:06:27 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ static t_fractal	*init_mandel(t_all *all)
 		all->fractal->y_max = (1.2 * all->win_y) / 240;
 		all->fractal->x_min = (-2.1 * all->win_x) / 270;
 		all->fractal->x_max = (0.6 * all->win_x) / 270;
-		all->fractal->zoom_var = 2;
 		all->fractal->iter_max = 25;
-		all->img_ptr = mlx_new_image(all->mlx, all->win_x, all->win_y);
-		all->img = mlx_get_data_addr(all->img_ptr, &bits, &size, &endian);
+		all->img_ptr = NULL;
 		check++;
 	}
+	if (all->img_ptr)
+		mlx_destroy_image(all->mlx, all->img_ptr);
+	all->img_ptr = mlx_new_image(all->mlx, all->win_x, all->win_y);
+	all->img = mlx_get_data_addr(all->img_ptr, &bits, &size, &endian);
 	return (all->fractal);
 }
 
@@ -64,7 +66,7 @@ static void			calcul_mandel(t_all *all, t_fractal *mandel, double x, double y)
 	if (mandel->iter == mandel->iter_max)
 		put_pixel_img(x, y, BLACK, all);
 	else
-		put_pixel_img_degrade(x, y, mandel->iter, all);
+		put_pixel_img_degrade(x, y, all->color, all);
 }
 
 void				mandelbrot(t_all *all)
@@ -84,5 +86,7 @@ void				mandelbrot(t_all *all)
 		}
 		x++;
 	}
+	mlx_clear_window(all->mlx, all->win);
 	mlx_put_image_to_window(all->mlx, all->win, all->img_ptr, 0, 0);
+	mlx_pixel_put(all->mlx, all->win, 250, 250, RED);
 }

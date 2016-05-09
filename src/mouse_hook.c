@@ -6,29 +6,46 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/05 13:44:22 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/06 12:43:45 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/09 16:55:32 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
+#include "../includes/lib_draw_img.h"
 
-/*static void		zoom_mandel(int b, int x, int y, t_all *all)
+static void		zoom_fractal(int b, double x, double y, t_all *all)
 {
+	FT_INIT(double, diff_x, fabs(all->fractal->x_max - all->fractal->x_min));
+	FT_INIT(double, diff_y, fabs(all->fractal->y_max - all->fractal->y_min));
+
 	if (b == ROLL_UP)
 	{
-		all->fractal->x_min = x - all->fractal->zoom_var;
-		all->fractal->x_max = x + all->fractal->zoom_var;
-		all->fractal->y_min = y - all->fractal->zoom_var;
-		all->fractal->y_max = y + all->fractal->zoom_var;
+		all->fractal->x_min += diff_x / 10;
+		all->fractal->x_max -= diff_x / 10;
+		all->fractal->y_min += diff_y / 10;
+		all->fractal->y_max -= diff_y / 10;
 	}
 	else if (b == ROLL_DOWN)
 	{
-		all->fractal->x_min = x + all->fractal->zoom_var;
-		all->fractal->x_max = x - all->fractal->zoom_var;
-		all->fractal->y_min = y + all->fractal->zoom_var;
-		all->fractal->y_max = y - all->fractal->zoom_var;
+		all->fractal->x_min -= diff_x / 10;
+		all->fractal->x_max += diff_x / 10;
+		all->fractal->y_min -= diff_y / 10;
+		all->fractal->y_max += diff_y / 10;
 	}
-}*/
+	else if (b == LEFT_B)
+	{
+		all->fractal->pt_zoomx = (all->fractal->x_max / (all->win_x / x));
+		all->fractal->pt_zoomy = (all->fractal->y_max / (all->win_y / y));
+		printf("PARAM DEBUT : x_min = %f, x_max = %f, y_min = %f, y_max = %f\n",
+			   all->fractal->x_min, all->fractal->x_max, all->fractal->y_min, all->fractal->y_max);
+		printf("CLIC : (%f ; %f) correspond a (%f ; %f) dans le repere\n",
+			   x, y, all->fractal->pt_zoomx, all->fractal->pt_zoomy);
+		all->fractal->x_min = all->fractal->pt_zoomx - (all->fractal->x_max / 2);
+		all->fractal->y_min = all->fractal->pt_zoomy - (all->fractal->y_max / 2);
+		all->fractal->x_max = all->fractal->pt_zoomx + (all->fractal->x_max / 2);
+		all->fractal->y_max = all->fractal->pt_zoomy + (all->fractal->y_max / 2);
+	}
+}
 
 int			mouse_hook(int button, int x, int y, t_all *all)
 {
@@ -36,24 +53,14 @@ int			mouse_hook(int button, int x, int y, t_all *all)
 
 	if (button == ROLL_DOWN)
 	{
-		all->fractal->x_min -= 0.1;
-		all->fractal->x_max += 0.1;
-		all->fractal->y_min -= 0.1;
-		all->fractal->y_max += 0.1;
-		all->fractal->zoom_var += 0.1;
 		if (all->fractal->iter_max > 5)
-			all->fractal->iter_max -= 1;
-//		zoom_mandel(button, x, y, all);
+			all->fractal->iter_max -= 2;
+		zoom_fractal(button, x, y, all);
 	}
 	else if (button == ROLL_UP)
 	{
-		all->fractal->x_min += 0.1;
-		all->fractal->x_max -= 0.1;
-		all->fractal->y_min += 0.1;
-		all->fractal->y_max -= 0.1;
-		all->fractal->zoom_var -= 0.1;
-		all->fractal->iter_max += 1;
-//		zoom_mandel(button, x, y, all);
+		all->fractal->iter_max += 2;
+		zoom_fractal(button, x, y, all);
 	}
 /*	else if (button == LEFT_B)
 	{
@@ -63,6 +70,7 @@ int			mouse_hook(int button, int x, int y, t_all *all)
 		printf("%d\n", all->color);
 		} */
 //	julia(all);
+	zoom_fractal(button, x, y, all);
 	mandelbrot(all);
 	return (0);
 }

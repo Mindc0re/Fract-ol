@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/06 12:10:49 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/09 16:20:03 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ typedef struct		s_fractal
 {
 	double			zoom_x;
 	double			zoom_y;
-	double			zoom_var;
+	double			pt_zoomx;
+	double			pt_zoomy;
 	t_complex		*c;
 	t_complex		*z;
 	double			iter;
