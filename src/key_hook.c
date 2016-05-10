@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 09:57:40 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/09 15:33:49 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/10 12:07:41 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ int				key_hook(int keycode, t_all *all)
 	}
 	else if (keycode == F)
 		all->fractal->iter_max += 0.5;
-//	julia(all);
+	else if (keycode == KP_MORE)
+		all->fractal->iter_max += 10;
+	else if (keycode == KP_LESS)
+		all->fractal->iter_max -= 10;
 	move_fractal(keycode, all);
-	mandelbrot(all);
+	choice("", all);
 	return (0);
 }
