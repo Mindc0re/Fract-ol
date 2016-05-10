@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 09:57:40 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/10 12:07:41 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/10 12:30:53 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static	void	move_fractal(int k, t_all *all)
 	}
 	else if (k == BAS)
 	{
-		all->fractal->y_min += diff_x / 50;
-		all->fractal->y_max += diff_x / 50;
+		all->fractal->y_min += diff_y / 50;
+		all->fractal->y_max += diff_y / 50;
 	}
 	else if (k == HAUT)
 	{

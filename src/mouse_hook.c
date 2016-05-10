@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/05 13:44:22 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/10 11:24:10 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/10 12:33:33 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ static void		zoom_fractal(int b, double x, double y, t_all *all)
 	}
 }
 
-int			mouse_hook(int button, int x, int y, t_all *all)
+int				mouse_hook(int button, int x, int y, t_all *all)
 {
-	static int init_rand = 0;
-
 	if (button == ROLL_DOWN)
 	{
 		if (all->fractal->iter_max > 5)

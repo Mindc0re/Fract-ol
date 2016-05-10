@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 11:30:21 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/09 15:43:00 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/10 12:35:34 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 t_fractal		*init_julia(t_all *all)
 {
-	static int check = 0;
-	int bits;
-	int size;
-	int endian;
+	static int	check = 0;
+	int			bits;
+	int			size;
+	int			endian;
 
 	if (!check)
 	{

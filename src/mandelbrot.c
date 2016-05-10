@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 15:35:28 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/09 16:06:27 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/10 12:36:52 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 static t_fractal	*init_mandel(t_all *all)
 {
-	static int check = 0;
-	int bits;
-	int size;
-	int endian;
+	static int	check = 0;
+	int			bits;
+	int			size;
+	int			endian;
 
 	if (!check)
 	{
@@ -40,7 +40,7 @@ static t_fractal	*init_mandel(t_all *all)
 	return (all->fractal);
 }
 
-static void			calcul_mandel(t_all *all, t_fractal *mandel, double x, double y)
+static void			calcul(t_all *all, t_fractal *mandel, double x, double y)
 {
 	double	tmp;
 
@@ -81,7 +81,7 @@ void				mandelbrot(t_all *all)
 		y = 0;
 		while (y < all->win_y)
 		{
-			calcul_mandel(all, mandel, x, y);
+			calcul(all, mandel, x, y);
 			y++;
 		}
 		x++;

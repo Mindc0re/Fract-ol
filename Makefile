@@ -6,7 +6,7 @@
 #    By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/03 09:51:13 by sgaudin           #+#    #+#              #
-#    Updated: 2016/05/06 12:10:35 by sgaudin          ###   ########.fr        #
+#    Updated: 2016/05/10 12:29:25 by sgaudin          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,7 @@ NAME = fractol
 
 L = lib_draw_img/
 
-CC = gcc #-Wall -Wextra -Werror
+CC = gcc -Wall -Wextra -Werror
 
 CC_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
