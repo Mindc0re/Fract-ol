@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 10:58:35 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 12:14:34 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 13:22:48 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,12 @@ static void			ship_calc(t_all *all, t_fractal *ship, double x, double y)
 	if (ship->iter == ship->iter_max)
 		put_pixel_img(x, y, BLACK, all);
 	else
-		put_pixel_img_degrade(x, y, all->color, all);
+	{
+		if (all->color_mode == NORMAL)
+			put_pixel_img_degrade(x, y, all->color, all);
+		else if (all->color_mode == PSYCHE)
+			put_pixel_img_psyche(x, y, all);
+	}
 }
 
 void				burning_ship(t_all *all)

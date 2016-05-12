@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 11:31:16 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 13:09:56 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ enum {
 	KP_8 = 91,
 	KP_9,
 	ALT_L = 261,
-	ALT_R
+	ALT_R,
+	SPACE = 49
 }					keys;
 
 enum {
@@ -75,6 +76,11 @@ enum {
 	JULIA,
 	SHIP
 }					fractals;
+
+enum {
+	NORMAL = 1,
+	PSYCHE
+}					color_modes;
 
 typedef struct		s_complex
 {
@@ -108,6 +114,7 @@ typedef struct		s_all
 	int				win_x;
 	int				win_y;
 	unsigned int	color;
+	int				color_mode;
 	t_fractal		*fractal;
 }					t_all;
 

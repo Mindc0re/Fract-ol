@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 09:49:11 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 12:04:45 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 13:10:58 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void		init_mlx(char *str, t_all *all)
 		all->win_x = 800;
 		all->win_y = 800;
 		all->color = 13971711;
+		all->color_mode = NORMAL;
 		all->win = mlx_new_window(all->mlx, all->win_x, all->win_y, "Fract'ol");
 		mlx_hook(all->win, 2, (1L << 0), key_hook, all);
 		mlx_mouse_hook(all->win, mouse_hook, all);

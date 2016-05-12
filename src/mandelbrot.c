@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 15:35:28 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 12:20:51 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 13:09:09 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ static void			calcul(t_all *all, t_fractal *mandel, double x, double y)
 
 	mandel->c->r = (x / mandel->zoom_x) + mandel->x_min;
 	mandel->c->i = (y / mandel->zoom_y) + mandel->y_min;
-	mandel->z->r = 0;
-	mandel->z->i = 0;
-	mandel->iter = 0;
+	FT_MULTI4(mandel->z->r, mandel->z->i, mandel->iter, 0);
 	tmp = mandel->z->r;
 	mandel->z->r = mandel->z->r * mandel->z->r -
 			mandel->z->i * mandel->z->i + mandel->c->r;
@@ -66,7 +64,12 @@ static void			calcul(t_all *all, t_fractal *mandel, double x, double y)
 	if (mandel->iter == mandel->iter_max)
 		put_pixel_img(x, y, WHITE, all);
 	else
-		put_pixel_img_degrade(x, y, all->color, all);
+	{
+		if (all->color_mode == NORMAL)
+			put_pixel_img_degrade(x, y, all->color, all);
+		else if (all->color_mode == PSYCHE)
+			put_pixel_img_psyche(x, y, all);
+	}
 }
 
 void				mandelbrot(t_all *all)
