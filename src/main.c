@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 09:49:11 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/10 12:13:29 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 11:13:26 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			choice(char *str, t_all *all)
 	if (!ft_strcmp(str, "mandelbrot") || all->is_valid == MANDEL)
 	{
 		all->is_valid = MANDEL;
-		mandelbrot(all);
+		burning_ship(all);
 		mlx_loop(all->mlx);
 	}
 	else if (!ft_strcmp(str, "julia") || all->is_valid == JULIA)

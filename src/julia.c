@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 11:30:21 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/10 14:36:26 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 09:41:11 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ t_fractal		*init_julia(t_all *all)
 		all->fractal = (t_fractal *)malloc(sizeof(t_fractal));
 		all->fractal->c = (t_complex *)malloc(sizeof(t_complex));
 		all->fractal->z = (t_complex *)malloc(sizeof(t_complex));
-		all->fractal->y_min = (-1.2 * all->win_y) / 240;
+/*		all->fractal->y_min = (-1.2 * all->win_y) / 240;
 		all->fractal->y_max = (1.2 * all->win_y) / 240;
 		all->fractal->x_min = (-1 * all->win_x) / 200;
 		all->fractal->x_max = (1 * all->win_x) / 200;
+*/
+		all->fractal->y_min = -1.2;
+		all->fractal->y_max = 1.2;
+		all->fractal->x_min = -2.1;
+		all->fractal->x_max = 0.6;
 		all->fractal->iter_max = 50;
 		all->fractal->c->r = 0.285;
 		all->fractal->c->i = 0.01;
@@ -43,8 +48,6 @@ void			calcul_julia(t_all *all, t_fractal *julia, double x, double y)
 {
 	double tmp;
 
-	julia->c->r = julia->pt_zoomx;
-	julia->c->i = julia->pt_zoomy;
 	julia->z->r = x / julia->zoom_x + julia->x_min;
 	julia->z->i = y / julia->zoom_y + julia->y_min;
 	julia->iter = 0;

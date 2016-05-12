@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/10 12:12:40 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 11:12:25 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <stdio.h>
 
 # define FT_INIT(t, n, v)			t n = v
-# define FT_MULTI(a, b, c)			a = b = c
+# define FT_MULTI3(a, b, c)			a = b = c
+# define FT_MULTI4(a, b, c, d)		a = b = c = d
 # define FT_TER(si, alors, sinon)	si ? alors : sinon
 
 # define WHITE 0x00FFFFFF
@@ -111,9 +112,11 @@ typedef struct		s_all
 
 int					key_hook(int keycode, t_all *all);
 int					mouse_hook(int button, int x, int y, t_all *all);
+int					expose_hook(int x, int y, t_all *all);
 void				choice(char *str, t_all *all);
 
 void				mandelbrot(t_all *all);
 void				julia(t_all *all);
+void				burning_ship(t_all *all);
 
 #endif
