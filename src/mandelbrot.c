@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 15:35:28 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 09:58:46 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 12:20:51 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,11 @@ static t_fractal	*init_mandel(t_all *all)
 		all->fractal = (t_fractal *)malloc(sizeof(t_fractal));
 		all->fractal->c = (t_complex *)malloc(sizeof(t_complex));
 		all->fractal->z = (t_complex *)malloc(sizeof(t_complex));
-		all->fractal->y_min = (-1.2 * all->win_y) / 240;
-		all->fractal->y_max = (1.2 * all->win_y) / 240;
-		all->fractal->x_min = (-2.1 * all->win_x) / 270;
-		all->fractal->x_max = (0.6 * all->win_x) / 270;
-
-/*		all->fractal->y_min = -1.2;
-		all->fractal->y_max = 1.2;
-		all->fractal->x_min = -2.1;
-		all->fractal->x_max = 0.6;
-*/		all->fractal->iter_max = 25;
+		all->fractal->x_min = -2.077237;
+		all->fractal->x_max = 0.544203;
+		all->fractal->y_min = -1.290816;
+		all->fractal->y_max = 1.330624;
+		all->fractal->iter_max = 35;
 		all->img_ptr = NULL;
 		check++;
 	}
@@ -69,7 +64,7 @@ static void			calcul(t_all *all, t_fractal *mandel, double x, double y)
 		mandel->iter++;
 	}
 	if (mandel->iter == mandel->iter_max)
-		put_pixel_img(x, y, BLACK, all);
+		put_pixel_img(x, y, WHITE, all);
 	else
 		put_pixel_img_degrade(x, y, all->color, all);
 }

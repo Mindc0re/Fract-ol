@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 11:12:25 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 11:31:16 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ enum {
 
 enum {
 	MANDEL = 1,
-	JULIA
+	JULIA,
+	SHIP
 }					fractals;
 
 typedef struct		s_complex

@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 09:57:40 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/10 12:30:53 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/12 12:03:24 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static	void	move_fractal(int k, t_all *all)
 
 int				key_hook(int keycode, t_all *all)
 {
+	static int neg = 0;
+
 	if (keycode == ESC)
 	{
 		mlx_destroy_image(all->mlx, all->img_ptr);
@@ -54,11 +56,13 @@ int				key_hook(int keycode, t_all *all)
 		exit(EXIT_SUCCESS);
 	}
 	else if (keycode == F)
-		all->fractal->iter_max += 0.5;
-	else if (keycode == KP_MORE)
-		all->fractal->iter_max += 10;
-	else if (keycode == KP_LESS)
-		all->fractal->iter_max -= 10;
+	{
+		all->fractal->iter_max += neg == 0 ? 0.5 : -0.5;
+		neg = neg == 0 ? 1 : 0;
+	}
+	all->fractal->iter_max += keycode == KP_MORE ? 10 : 0;
+	if (keycode == KP_LESS)
+		all->fractal->iter_max -= all->fractal->iter_max > 10 ? 10 : 0;
 	move_fractal(keycode, all);
 	choice("", all);
 	return (0);
