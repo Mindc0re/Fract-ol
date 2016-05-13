@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 11:30:21 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 12:06:04 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/13 14:30:17 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ t_fractal		*init_julia(t_all *all)
 		all->fractal->z = (t_complex *)malloc(sizeof(t_complex));
 		all->fractal->y_min = -1.2;
 		all->fractal->y_max = 1.2;
-		all->fractal->x_min = -2.1;
-		all->fractal->x_max = 0.6;
+		all->fractal->x_min = -1.344;
+		all->fractal->x_max = 1.356;
 		all->fractal->iter_max = 50;
-		all->fractal->c->r = 0.285;
-		all->fractal->c->i = 0.01;
 		all->img_ptr = mlx_new_image(all->mlx, all->win_x, all->win_y);
 		all->img = mlx_get_data_addr(all->img_ptr, &bits, &size, &endian);
 		check++;
+	}
+	if (all->motion == PSYCHE)
+	{
+		all->fractal->c->r = all->fractal->pt_zoomx;
+		all->fractal->c->i = all->fractal->pt_zoomy;
 	}
 	return (all->fractal);
 }
@@ -43,8 +46,8 @@ void			calcul_julia(t_all *all, t_fractal *julia, double x, double y)
 {
 	double tmp;
 
-	julia->z->r = x / julia->zoom_x + julia->x_min;
-	julia->z->i = y / julia->zoom_y + julia->y_min;
+	julia->z->r = (x / julia->zoom_x + julia->x_min) ;
+	julia->z->i = (y / julia->zoom_y + julia->y_min) ;
 	julia->iter = 0;
 	tmp = julia->z->r;
 	julia->z->r = julia->z->r * julia->z->r -
@@ -61,9 +64,14 @@ void			calcul_julia(t_all *all, t_fractal *julia, double x, double y)
 		julia->iter++;
 	}
 	if (julia->iter == julia->iter_max)
-		put_pixel_img(x, y, BLACK, all);
+		put_pixel_img(x, y, WHITE, all);
 	else
-		put_pixel_img_degrade(x, y, all->color, all);
+	{
+		if (all->color_mode == NORMAL)
+			put_pixel_img_degrade(x, y, all->color, all);
+		else if (all->color_mode == PSYCHE)
+			put_pixel_img_psyche(x, y, all);
+	}
 }
 
 void			julia(t_all *all)

@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 13:09:56 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/13 15:28:30 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libft/includes/libft.h"
 # include <mlx.h>
 # include <math.h>
-# include <time.h>
 
 # include <stdio.h>
 
@@ -25,13 +24,13 @@
 # define FT_MULTI4(a, b, c, d)		a = b = c = d
 # define FT_TER(si, alors, sinon)	si ? alors : sinon
 
-# define WHITE 0x00FFFFFF
-# define RED 0x00FF0000
-# define BLUE 0x000000FF
-# define GREEN 0x0000FF00
-# define PINK 0x00F400A1
-# define GOLD 0x00FFD700
-# define BLACK 0x00000000
+# define WHITE 0xFFFFFF
+# define RED 0xFF0921
+# define BLUE 0x2C75FF
+# define GREEN 0x3AF24B
+# define PINK 0xF400A1
+# define GOLD 0xFFD700
+# define BLACK 0x000000
 
 enum {
 	ESC = 53,
@@ -67,7 +66,8 @@ enum {
 enum {
 	LEFT_B = 1,
 	RIGHT_B,
-	ROLL_DOWN = 4,
+	SIDE,
+	ROLL_DOWN,
 	ROLL_UP
 }					mouse;
 
@@ -115,12 +115,13 @@ typedef struct		s_all
 	int				win_y;
 	unsigned int	color;
 	int				color_mode;
+	int				motion;
 	t_fractal		*fractal;
 }					t_all;
 
 int					key_hook(int keycode, t_all *all);
 int					mouse_hook(int button, int x, int y, t_all *all);
-int					expose_hook(int x, int y, t_all *all);
+int					motion_hook(int x_screen, int y_screen, t_all *all);
 void				choice(char *str, t_all *all);
 
 void				mandelbrot(t_all *all);

@@ -7,7 +7,7 @@
 #    By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/05/03 09:51:13 by sgaudin           #+#    #+#              #
-#    Updated: 2016/05/12 11:12:34 by sgaudin          ###   ########.fr        #
+#    Updated: 2016/05/13 13:59:14 by sgaudin          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ CC = gcc -Wall -Wextra -Werror
 CC_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 SRC = src/main.c src/mandelbrot.c src/key_hook.c src/mouse_hook.c \
-	src/julia.c src/burning_ship.c
+	src/julia.c src/burning_ship.c src/motion_hook.c
 
 LIBD_SRC = $(L)put_pixel_img.c
 

@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 15:35:28 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 13:09:09 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/13 14:16:48 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,4 @@ void				mandelbrot(t_all *all)
 	}
 	mlx_clear_window(all->mlx, all->win);
 	mlx_put_image_to_window(all->mlx, all->win, all->img_ptr, 0, 0);
-	mlx_pixel_put(all->mlx, all->win, all->win_x / 2, all->win_y / 2, RED);
 }
