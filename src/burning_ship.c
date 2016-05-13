@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 10:58:35 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/12 13:22:48 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/13 15:49:37 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_fractal	*init_ship(t_all *all)
 	return (all->fractal);
 }
 
-static void			ship_calc(t_all *all, t_fractal *ship, double x, double y)
+static void			firstiter(t_fractal *ship, double x, double y)
 {
 	double	tmp;
 
@@ -53,6 +53,13 @@ static void			ship_calc(t_all *all, t_fractal *ship, double x, double y)
 		ship->z->i * ship->z->i + ship->c->r;
 	ship->z->i = 2 * ship->z->i * tmp + ship->c->i;
 	ship->iter++;
+}
+
+static void			ship_calc(t_all *all, t_fractal *ship, double x, double y)
+{
+	double	tmp;
+
+	firstiter(ship, x, y);
 	while ((ship->z->r * ship->z->r + ship->z->i * ship->z->i) < 4
 			&& (ship->iter < ship->iter_max))
 	{

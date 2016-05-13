@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 11:30:21 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/13 14:30:17 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/13 15:44:10 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,13 @@ t_fractal		*init_julia(t_all *all)
 
 void			calcul_julia(t_all *all, t_fractal *julia, double x, double y)
 {
-	double tmp;
-
-	julia->z->r = (x / julia->zoom_x + julia->x_min) ;
-	julia->z->i = (y / julia->zoom_y + julia->y_min) ;
-	julia->iter = 0;
-	tmp = julia->z->r;
+	julia->z->r = (x / julia->zoom_x + julia->x_min);
+	julia->z->i = (y / julia->zoom_y + julia->y_min);
+	FT_INIT(double, tmp, julia->z->r);
 	julia->z->r = julia->z->r * julia->z->r -
 		julia->z->i * julia->z->i + julia->c->r;
 	julia->z->i = 2 * julia->z->i * tmp + julia->c->i;
-	julia->iter++;
+	julia->iter = 1;
 	while ((julia->z->r * julia->z->r + julia->z->i * julia->z->i) < 4
 			&& (julia->iter < julia->iter_max))
 	{

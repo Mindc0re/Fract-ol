@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 15:35:28 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/13 14:16:48 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/13 15:52:55 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static t_fractal	*init_mandel(t_all *all)
 	return (all->fractal);
 }
 
-static void			calcul(t_all *all, t_fractal *mandel, double x, double y)
+static void			first_iter(t_fractal *mandel, double x, double y)
 {
-	double	tmp;
+	double tmp;
 
 	mandel->c->r = (x / mandel->zoom_x) + mandel->x_min;
 	mandel->c->i = (y / mandel->zoom_y) + mandel->y_min;
@@ -52,6 +52,13 @@ static void			calcul(t_all *all, t_fractal *mandel, double x, double y)
 			mandel->z->i * mandel->z->i + mandel->c->r;
 	mandel->z->i = 2 * mandel->z->i * tmp + mandel->c->i;
 	mandel->iter++;
+}
+
+static void			calcul(t_all *all, t_fractal *mandel, double x, double y)
+{
+	double	tmp;
+
+	first_iter(mandel, x, y);
 	while ((mandel->z->r * mandel->z->r + mandel->z->i * mandel->z->i) < 4
 			&& (mandel->iter < mandel->iter_max))
 	{
