@@ -6,72 +6,76 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/06 11:30:21 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/13 15:44:10 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/17 14:15:44 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include "../includes/lib_draw_img.h"
 
-t_fractal		*init_julia(t_all *all)
+static void			init_repere_julia(t_all *all)
+{
+	all->fractal->x_min = -1.344;
+	all->fractal->x_max = all->fractal->x_min + ((all->win_x * 2.7) / 800);
+	all->fractal->y_min = -1.2;
+	all->fractal->y_max = all->fractal->y_min + ((all->win_y * 2.4) / 800);
+}
+
+static t_fractal	*init_julia(t_all *a)
 {
 	static int	check = 0;
 	int			bits;
-	int			size;
 	int			endian;
 
 	if (!check)
 	{
-		all->fractal = (t_fractal *)malloc(sizeof(t_fractal));
-		all->fractal->c = (t_complex *)malloc(sizeof(t_complex));
-		all->fractal->z = (t_complex *)malloc(sizeof(t_complex));
-		all->fractal->y_min = -1.2;
-		all->fractal->y_max = 1.2;
-		all->fractal->x_min = -1.344;
-		all->fractal->x_max = 1.356;
-		all->fractal->iter_max = 50;
-		all->img_ptr = mlx_new_image(all->mlx, all->win_x, all->win_y);
-		all->img = mlx_get_data_addr(all->img_ptr, &bits, &size, &endian);
+		a->fractal = (t_fractal *)malloc(sizeof(t_fractal));
+		a->fractal->c = (t_complex *)malloc(sizeof(t_complex));
+		a->fractal->z = (t_complex *)malloc(sizeof(t_complex));
+		init_repere_julia(a);
+		a->fractal->iter_max = 50;
+		a->img_ptr = mlx_new_image(a->mlx, a->win_x, a->win_y);
+		a->img = mlx_get_data_addr(a->img_ptr, &bits, &a->sizeline, &endian);
 		check++;
 	}
-	if (all->motion == PSYCHE)
+	if (a->motion == PSYCHE)
 	{
-		all->fractal->c->r = all->fractal->pt_zoomx;
-		all->fractal->c->i = all->fractal->pt_zoomy;
+		a->fractal->c->r = a->fractal->pt_zoomx;
+		a->fractal->c->i = a->fractal->pt_zoomy;
 	}
-	return (all->fractal);
+	return (a->fractal);
 }
 
-void			calcul_julia(t_all *all, t_fractal *julia, double x, double y)
+static void			calcul_julia(t_all *a, t_fractal *j, double x, double y)
 {
-	julia->z->r = (x / julia->zoom_x + julia->x_min);
-	julia->z->i = (y / julia->zoom_y + julia->y_min);
-	FT_INIT(double, tmp, julia->z->r);
-	julia->z->r = julia->z->r * julia->z->r -
-		julia->z->i * julia->z->i + julia->c->r;
-	julia->z->i = 2 * julia->z->i * tmp + julia->c->i;
-	julia->iter = 1;
-	while ((julia->z->r * julia->z->r + julia->z->i * julia->z->i) < 4
-			&& (julia->iter < julia->iter_max))
+	j->z->r = (x / j->zoom_x + j->x_min);
+	j->z->i = (y / j->zoom_y + j->y_min);
+	FT_INIT(double, tmp, j->z->r);
+	j->z->r = j->z->r * j->z->r -
+		j->z->i * j->z->i + j->c->r;
+	j->z->i = 2 * j->z->i * tmp + j->c->i;
+	j->iter = 1;
+	while ((j->z->r * j->z->r + j->z->i * j->z->i) < 4
+			&& (j->iter < j->iter_max))
 	{
-		tmp = julia->z->r;
-		julia->z->r = julia->z->r * julia->z->r -
-			julia->z->i * julia->z->i + julia->c->r;
-		julia->z->i = 2 * julia->z->i * tmp + julia->c->i;
-		julia->iter++;
+		tmp = j->z->r;
+		j->z->r = j->z->r * j->z->r -
+			j->z->i * j->z->i + j->c->r;
+		j->z->i = 2 * j->z->i * tmp + j->c->i;
+		j->iter++;
 	}
-	if (julia->iter == julia->iter_max)
-		put_pixel_img(x, y, WHITE, all);
+	if (j->iter == j->iter_max)
+		put_pixel_img(x, y, WHITE, a);
 	else
 	{
-		if (all->color_mode == NORMAL)
-			put_pixel_img_degrade(x, y, all->color, all);
-		else if (all->color_mode == PSYCHE)
-			put_pixel_img_psyche(x, y, all);
+		if (a->color_mode == NORMAL)
+			put_pixel_img_degrade(x, y, a->color, a);
+		else if (a->color_mode == PSYCHE)
+			put_pixel_img_psyche(x, y, a);
 	}
 }
 
-void			julia(t_all *all)
+void				julia(t_all *all)
 {
 	FT_INIT(t_fractal, *julia, init_julia(all));
 	FT_INIT(double, x, 0);

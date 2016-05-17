@@ -6,12 +6,20 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 15:35:28 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/13 15:52:55 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/17 13:56:18 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include "../includes/lib_draw_img.h"
+
+static void			init_repere_mandelbrot(t_all *all)
+{
+	all->fractal->x_min = -2.077237;
+	all->fractal->x_max = all->fractal->x_min + ((all->win_x * 2.621440) / 800);
+	all->fractal->y_min = -1.290816;
+	all->fractal->y_max = all->fractal->y_min + ((all->win_y * 2.621430) / 800);
+}
 
 static t_fractal	*init_mandel(t_all *all)
 {
@@ -25,10 +33,7 @@ static t_fractal	*init_mandel(t_all *all)
 		all->fractal = (t_fractal *)malloc(sizeof(t_fractal));
 		all->fractal->c = (t_complex *)malloc(sizeof(t_complex));
 		all->fractal->z = (t_complex *)malloc(sizeof(t_complex));
-		all->fractal->x_min = -2.077237;
-		all->fractal->x_max = 0.544203;
-		all->fractal->y_min = -1.290816;
-		all->fractal->y_max = 1.330624;
+		init_repere_mandelbrot(all);
 		all->fractal->iter_max = 35;
 		all->img_ptr = NULL;
 		check++;
@@ -37,6 +42,7 @@ static t_fractal	*init_mandel(t_all *all)
 		mlx_destroy_image(all->mlx, all->img_ptr);
 	all->img_ptr = mlx_new_image(all->mlx, all->win_x, all->win_y);
 	all->img = mlx_get_data_addr(all->img_ptr, &bits, &size, &endian);
+	all->sizeline = size;
 	return (all->fractal);
 }
 

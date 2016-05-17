@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/04 09:49:11 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/13 15:32:39 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/17 14:12:02 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static void		color_choice(char *str, t_all *all)
 	else if (!ft_strcmp(str, "pink"))
 		all->color = PINK;
 	else
-	{
 		all->color = 13971711;
-		ft_putendl("Color set to default");
-	}
 }
 
 static void		init_mlx(char *str, t_all *all)
@@ -40,8 +37,8 @@ static void		init_mlx(char *str, t_all *all)
 		|| !ft_strcmp(str, "burning_ship"))
 	{
 		all->mlx = mlx_init();
-		all->win_x = 800;
-		all->win_y = 800;
+		all->win_x = 1980;
+		all->win_y = 1080;
 		all->color_mode = NORMAL;
 		all->motion = PSYCHE;
 		all->win = mlx_new_window(all->mlx, all->win_x, all->win_y, "Fract'ol");
@@ -51,7 +48,7 @@ static void		init_mlx(char *str, t_all *all)
 	}
 }
 
-void			choice(char *str, t_all *all)
+int				choice(char *str, t_all *all)
 {
 	if (!all->is_valid)
 		init_mlx(str, all);
@@ -74,10 +71,8 @@ void			choice(char *str, t_all *all)
 		mlx_loop(all->mlx);
 	}
 	else
-	{
-		ft_putendl("Correct fractals : mandelbrot, julia, burning_ship");
-		free(all);
-	}
+		return (0);
+	return (1);
 }
 
 int				main(int ac, char **av)
@@ -92,9 +87,18 @@ int				main(int ac, char **av)
 			color_choice(av[2], all);
 		else
 			color_choice("", all);
-		choice(av[1], all);
+		if (!choice(av[1], all))
+		{
+			free(all);
+			ft_putendl("Correct fractals : mandelbrot, julia, burning_ship");
+			ft_putendl("Correct colors : green, blue, red, pink, gold");
+			exit(EXIT_SUCCESS);
+		}
 	}
 	else
+	{
 		ft_putendl("Correct fractals : mandelbrot, julia, burning_ship");
+		ft_putendl("Correct colors : green, blue, red, pink, gold");
+	}
 	return (0);
 }

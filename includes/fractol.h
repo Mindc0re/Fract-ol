@@ -6,7 +6,7 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 09:29:26 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/13 15:28:30 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/17 14:14:02 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct		s_all
 	void			*win;
 	void			*img_ptr;
 	char			*img;
+	int				sizeline;
 	int				is_valid;
 	int				win_x;
 	int				win_y;
@@ -122,7 +123,7 @@ typedef struct		s_all
 int					key_hook(int keycode, t_all *all);
 int					mouse_hook(int button, int x, int y, t_all *all);
 int					motion_hook(int x_screen, int y_screen, t_all *all);
-void				choice(char *str, t_all *all);
+int					choice(char *str, t_all *all);
 
 void				mandelbrot(t_all *all);
 void				julia(t_all *all);

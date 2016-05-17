@@ -6,12 +6,20 @@
 /*   By: sgaudin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 10:58:35 by sgaudin           #+#    #+#             */
-/*   Updated: 2016/05/13 15:49:37 by sgaudin          ###   ########.fr       */
+/*   Updated: 2016/05/17 14:03:44 by sgaudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include "../includes/lib_draw_img.h"
+
+static void			init_repere_ship(t_all *all)
+{
+	all->fractal->x_min = -2.8448;
+	all->fractal->x_max = all->fractal->x_min + ((all->win_x * 5.15978) / 800);
+	all->fractal->y_min = -2.590242;
+	all->fractal->y_max = all->fractal->y_min + ((all->win_y * 4.586472) / 800);
+}
 
 static t_fractal	*init_ship(t_all *all)
 {
@@ -25,10 +33,7 @@ static t_fractal	*init_ship(t_all *all)
 		all->fractal = (t_fractal *)malloc(sizeof(t_fractal));
 		all->fractal->c = (t_complex *)malloc(sizeof(t_complex));
 		all->fractal->z = (t_complex *)malloc(sizeof(t_complex));
-		all->fractal->y_min = -2.590242;
-		all->fractal->y_max = 1.99623;
-		all->fractal->x_min = -2.8448;
-		all->fractal->x_max = 2.31498;
+		init_repere_ship(all);
 		all->fractal->iter_max = 25;
 		all->img_ptr = NULL;
 		check++;
@@ -37,6 +42,7 @@ static t_fractal	*init_ship(t_all *all)
 		mlx_destroy_image(all->mlx, all->img_ptr);
 	all->img_ptr = mlx_new_image(all->mlx, all->win_x, all->win_y);
 	all->img = mlx_get_data_addr(all->img_ptr, &bits, &size, &endian);
+	all->sizeline = size;
 	return (all->fractal);
 }
 
@@ -100,5 +106,4 @@ void				burning_ship(t_all *all)
 	}
 	mlx_clear_window(all->mlx, all->win);
 	mlx_put_image_to_window(all->mlx, all->win, all->img_ptr, 0, 0);
-	mlx_pixel_put(all->mlx, all->win, all->win_x / 2, all->win_y / 2, RED);
 }
